@@ -4,13 +4,21 @@ from pyspark.sql import SparkSession
 from pyspark.sql import Row
 from pyspark.sql.window import Window
 
-# mockando o módulo awsglue que não está disponível fora do Glue
+# mockando o módulo awsglue e o comportamento do job.init
 with mock.patch.dict('sys.modules', {
     'awsglue.context': mock.Mock(),
     'awsglue.utils': mock.Mock(),
     'awsglue.job': mock.Mock(),
 }):
-    from jobs.transform import create_lag_columns
+    # simulando o comportamento do 'args' como um dicionário
+    mock_args = {'JOB_NAME': 'test_job'}
+
+    # simulando o comportamento do 'Job' e da função 'init'
+    with mock.patch('awsglue.job.Job') as MockJob:
+        mock_job_instance = MockJob.return_value
+        mock_job_instance.init.return_value = None
+
+        from src.jobs.transform import create_lag_columns
 
 
 @pytest.fixture(scope="module")
