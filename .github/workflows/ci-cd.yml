@@ -39,7 +39,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyspark boto3 pytest
+          pip install pyspark pytest
 
       - name: Set PYTHONPATH
         run: |

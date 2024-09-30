@@ -2,7 +2,7 @@ import pytest
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
 from pyspark.sql.window import Window
-from src.utils import create_lag_columns
+from utils import create_lag_columns
 
 
 @pytest.fixture(scope="module")
