@@ -41,9 +41,12 @@ jobs:
         run: |
           pip install pyspark boto3 pytest
 
+      - name: Set PYTHONPATH
+        run: |
+          export PYTHONPATH=$PYTHONPATH:./src/jobs
+
       - name: Run tests
         run: |
-          export PYTHONPATH=.
           pytest ./src/tests
 
   deploy:
