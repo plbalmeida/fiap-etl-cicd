@@ -10,7 +10,7 @@ with mock.patch.dict('sys.modules', {
     'awsglue.utils': mock.Mock(),
     'awsglue.job': mock.Mock(),
 }):
-    from src.jobs.transform import create_lag_columns
+    from jobs.transform import create_lag_columns
 
 
 @pytest.fixture(scope="module")
