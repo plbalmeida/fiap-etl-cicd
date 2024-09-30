@@ -1,14 +1,13 @@
 import sys
 import logging
 import boto3
-import time
 from awsglue.context import GlueContext
 from awsglue.utils import getResolvedOptions
 from awsglue.job import Job
 from pyspark.context import SparkContext
 from pyspark.sql.functions import (
-    avg, 
-    col, 
+    avg,
+    col,
     concat,
     current_date,
     date_format,
@@ -32,6 +31,7 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 console_handler.setFormatter(formatter)
 logger.addHandler(console_handler)
 
+
 # função para adicionar colunas de lags ao DataFrame
 def create_lag_columns(df, window_spec):
     df = df.withColumn("lag_1_mes_preco_medio_usd", lag("preco_medio_usd", 1).over(window_spec)) \
@@ -41,6 +41,7 @@ def create_lag_columns(df, window_spec):
            .withColumn("lag_5_meses_preco_medio_usd", lag("preco_medio_usd", 5).over(window_spec)) \
            .withColumn("lag_6_meses_preco_medio_usd", lag("preco_medio_usd", 6).over(window_spec))
     return df
+
 
 # parâmetros de execução do Glue (se houver)
 args = getResolvedOptions(sys.argv, ['JOB_NAME'])
