@@ -1,0 +1,65 @@
+name: Terraform Backend
+
+on: 
+  push:
+    branches: 
+      - terraform-backend
+
+jobs:
+  s3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      
+      - name: Terraform Apply for S3
+        run: |
+          cd infra/terraform_backend/s3
+          terraform init
+          terraform plan
+          terraform apply -auto-approve
+
+  dynamodb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Terraform Apply for Dynamo DB
+        run: |
+          cd infra/terraform_backend/dynamodb
+          terraform init
+          terraform plan
+          terraform apply -auto-approve
+  
+  iam-role:
+    runs-on: ubuntu-latest
+    needs: [s3, dynamodb]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Terraform Apply for IAM Role
+        run: |
+          cd infra/terraform_backend/iam_role
+          terraform init
+          terraform plan
+          terraform apply -auto-approve
