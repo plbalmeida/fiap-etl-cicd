@@ -5,19 +5,19 @@ from pyspark.sql.functions import lag
 
 def create_lag_columns(df: DataFrame, window_spec: WindowSpec) -> DataFrame:
     """
-    Adds lag columns to a DataFrame based on a specified window.
+    Adiciona colunas de lags no DataFrame com base na janela especificada.
 
     Parameters
     ----------
     df : DataFrame
-        Input Spark DataFrame with at least the column "preco_medio_usd".
+        Spark DataFrame com a coluna "preco_medio_usd".
     window_spec : WindowSpec
-        Window specification to use for calculating lag values.
+        Janela que será usada para calcular valores de atraso.
 
     Returns
     -------
     DataFrame
-        DataFrame with lag columns for the past 6 months.
+        DataFrame com colunas de lags dos últimos 6 meses.
     """
     df = df.withColumn("lag_1_mes_preco_medio_usd", lag("preco_medio_usd", 1).over(window_spec)) \
            .withColumn("lag_2_meses_preco_medio_usd", lag("preco_medio_usd", 2).over(window_spec)) \

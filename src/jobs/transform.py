@@ -11,7 +11,6 @@ from pyspark.sql.functions import (
     concat,
     current_date,
     date_format,
-    lag,
     lpad,
     max,
     min,
