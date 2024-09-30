@@ -30,7 +30,10 @@ resource "aws_glue_job" "transform_job" {
     script_location = "${var.script_location}transform.py"
   }
 
-  default_arguments = var.default_arguments
+  default_arguments = merge(
+    var.default_arguments,
+    { "--extra-py-files" = "s3://fiap-etl-20240918/libs/utils.zip" }
+  )
 
   max_retries       = 0
   worker_type       = "G.1X"
