@@ -38,9 +38,12 @@ resource "aws_iam_policy" "policy" {
       {
         Effect : "Allow",
         Action : [
+          "dynamodb:ListTables",
           "dynamodb:GetItem",
           "dynamodb:PutItem",
-          "dynamodb:DeleteItem"
+          "dynamodb:DeleteItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DescribeTable"
         ],
         Resource : [
           "arn:aws:dynamodb:${var.region}:${var.account_id}:table/${var.project_name}-terraform-backend-lock-table"
