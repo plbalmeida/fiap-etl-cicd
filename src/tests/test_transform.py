@@ -1,8 +1,8 @@
 import pytest
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
-from transform import create_lag_columns
 from pyspark.sql.window import Window
+from utils import create_lag_columns
 
 
 @pytest.fixture(scope="module")
@@ -14,7 +14,7 @@ def spark():
 
 
 def test_create_lag_columns(spark):
-    # cria um DataFrame do pysaprk de exemplo
+    # cria um DataFrame do pyspark de exemplo
     data = [
         Row(year=2023, month=1, preco_medio_usd=50.0),
         Row(year=2023, month=2, preco_medio_usd=55.0),

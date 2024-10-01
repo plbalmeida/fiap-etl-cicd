@@ -39,11 +39,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyspark boto3 pytest
+          pip install pyspark pytest
+
+      - name: Set PYTHONPATH
+        run: |
+          echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
 
       - name: Run tests
         run: |
-          export PYTHONPATH=.
           pytest ./src/tests
 
   deploy:
@@ -71,7 +74,15 @@ jobs:
         run: |
           ACTION=$(cat terraform_action.txt)
           echo "ACTION=${ACTION}" >> $GITHUB_ENV
-  
+
+      - name: Zip utils.py
+        run: |
+          zip -j utils.zip src/utils.py
+
+      - name: Upload utils.zip to S3
+        run: |
+          aws s3 cp utils.zip s3://fiap-etl-20240918/libs/
+
       - name: Terraform Init and Apply/Destroy
         run: |
           cd infra/glue
