@@ -18,10 +18,6 @@ resource "aws_glue_job" "extract_job" {
   max_retries       = 0
   worker_type       = "G.1X"
   number_of_workers = 2
-
-  lifecycle {
-    create_before_destroy = false
-  }
 }
 
 resource "aws_glue_job" "transform_job" {
@@ -42,10 +38,6 @@ resource "aws_glue_job" "transform_job" {
   max_retries       = 0
   worker_type       = "G.1X"
   number_of_workers = 2
-
-  lifecycle {
-    create_before_destroy = false
-  }
 }
 
 resource "aws_glue_job" "load_job" {
@@ -63,8 +55,4 @@ resource "aws_glue_job" "load_job" {
   max_retries       = 0
   worker_type       = "G.1X"
   number_of_workers = 2
-
-  lifecycle {
-    create_before_destroy = false
-  }
 }
