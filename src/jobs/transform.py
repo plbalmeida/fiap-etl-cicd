@@ -19,7 +19,7 @@ from pyspark.sql.functions import (
     to_date
 )
 from pyspark.sql.window import Window
-from src.jobs.utils import create_lag_columns
+from utils import create_lag_columns
 
 
 # configura o Logger
