@@ -20,7 +20,7 @@ resource "aws_glue_job" "extract_job" {
   number_of_workers = 2
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
@@ -44,7 +44,7 @@ resource "aws_glue_job" "transform_job" {
   number_of_workers = 2
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
@@ -65,6 +65,6 @@ resource "aws_glue_job" "load_job" {
   number_of_workers = 2
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
