@@ -8,6 +8,10 @@ from pyspark.context import SparkContext
 import ipeadatapy as ip
 from pyspark.sql.functions import current_date, date_format
 
+
+
+
+
 # configura o Logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)

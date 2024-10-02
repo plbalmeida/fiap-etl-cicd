@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Flake8
         run: |
-          flake8 ./src --ignore=E501
+          flake8 ./src
 
   test:
     needs: lint
