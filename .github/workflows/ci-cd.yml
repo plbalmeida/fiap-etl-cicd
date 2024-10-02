@@ -99,10 +99,6 @@ jobs:
             echo "Invalid action specified in terraform-action.txt"
             exit 1
           fi
-      
-      - name: Install AWS CLI
-        run: |
-          sudo apt-get install -y awscli
 
       - name: Upload Python scripts to S3
         run: |
