@@ -22,12 +22,8 @@ Este projeto implementa um pipeline ETL que:
 ## Estrutura dos Diretórios
 
 - **`src/jobs/`**: Contém os scripts Python (`extract.py`, `transform.py`, `load.py`) utilizados para os jobs no AWS Glue.
-  - `extract.py`: Extrai os dados da fonte.
-  - `transform.py`: Aplica as transformações necessárias.
-  - `load.py`: Carrega os dados transformados no bucket S3.
   
 - **`src/tests/`**: Contém os testes unitários para validar as funções utilizadas nos scripts ETL.
-  - `test_transform.py`: Testa as funções de transformação de dados do script `transform.py`.
 
 - **`infra/`**: Contém os módulos Terraform responsáveis por provisionar a infraestrutura na AWS.
 
@@ -43,13 +39,13 @@ Este projeto implementa um pipeline ETL que:
 
 ## Pipeline CI/CD
 
-O pipeline de CI/CD utiliza **GitHub Actions** para:
+O arquivo `terraform-backend.yml` é referente ao pipeline do **GitHub Actions** para provsionar os recursos necessários para o arquivo de estado do Terraform.
+
+O arquivo `ci-cd.yml` é referente ao pipeline de CI/CD, o mesmo utiliza **GitHub Actions** para:
 
 1. Verificar e aplicar boas práticas de código (Linting) com `flake8`.
 2. Rodar os testes unitários para validar as transformações de dados.
 3. Subir os scripts de transformação para o bucket S3.
 4. Provisionar a infraestrutura via Terraform.
 
-Para disparar o pipeline, basta fazer um `push` para o branch `main`.
-
-Se o arquivo `terraform_action.txt` conter `apply` irá provsionar os recursos, se conter `destroy`, irá destruir os recursos.
+Para disparar o pipeline, basta fazer um `push` para o branch `main`. Se o arquivo `terraform_action.txt` conter `apply` irá provsionar os recursos, se conter `destroy`, irá destruir os recursos.
