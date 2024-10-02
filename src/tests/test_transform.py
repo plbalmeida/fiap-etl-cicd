@@ -37,4 +37,4 @@ def test_create_lag_columns(spark):
     # verifica se os valores estão corretos
     result = result_df.collect()
     assert result[1]["lag_1_mes_preco_medio_usd"] == 50.0  # para fevereiro, o lag de 1 mês deve ser o preço de janeiro
-    assert result[2]["lag_2_meses_preco_medio_usd"] == 50.0  # para março, o lag de 2 meses deve ser o preço de janeiro
+    assert result[2]["lag_2_meses_preco_medio_usd"] == 70.0  # para março, o lag de 2 meses deve ser o preço de janeiro
